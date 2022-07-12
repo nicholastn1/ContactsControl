@@ -34,8 +34,25 @@ namespace ContactsControl.Controllers
 
         public IActionResult Delete(int id)
         {
-            _contactRepository.Delete(id);
-            return RedirectToAction("Index");
+            try
+            {
+                bool deleted = _contactRepository.Delete(id);
+
+                if (deleted == true)
+                {
+                    TempData["SuccessMessage"] = "Contact delete successfully!";
+                }
+                else
+                {
+                    TempData["SuccessMessage"] = $"Contact could not be deleted";
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = $"Contact could not be edited! Error details: {e.Message}";
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult DeleteConfirmation(int id)
@@ -49,25 +66,41 @@ namespace ContactsControl.Controllers
         {
             try
             {
+                if (ModelState.IsValid)
+                {
+                    _contactRepository.Add(contact);
+                    TempData["SuccessMessage"] = "Contact registered successfully!";
+                    return RedirectToAction("Index");
+                }
 
+                return View(contact);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                TempData["ErrorMessage"] = $"Contact could not be registered! Error details: {e.Message}";
+                return RedirectToAction("Index");
             }
         }
 
         [HttpPost]
         public IActionResult Edit(ContactModel contact)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _contactRepository.Update(contact);
+                if (ModelState.IsValid)
+                {
+                    _contactRepository.Update(contact);
+                    TempData["SuccessMessage"] = "Contact edited successfully!";
+                    return RedirectToAction("Index");
+                }
+
+                return View(contact);
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = $"Contact could not be edited! Error details: {e.Message}";
                 return RedirectToAction("Index");
             }
-
-            return View(contact);
         }
 
     }
