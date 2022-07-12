@@ -1,0 +1,50 @@
+﻿@using ContactsControl.Enums
+@model UserModel
+@{
+    ViewData["Title"] = "Create User";
+}
+
+<div class="text-center">
+
+    <h1 class="display-4">Register User</h1>
+
+</div>
+
+<form asp-controller="User" asp-action="Create" method="post">
+
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" asp-for="Name" class="form-control" placeholder="Enter user name">
+        @Html.ValidationMessageFor(x => x.Name)
+    </div>
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" asp-for="Email" class="form-control" placeholder="Enter user email">
+        @Html.ValidationMessageFor(x => x.Email)
+    </div>
+
+    <div class="mb-3">
+        <label for="login" class="form-label">Login</label>
+        <input type="text" asp-for="Login" class="form-control" placeholder="Enter user login">
+        @Html.ValidationMessageFor(x => x.Login)
+    </div>
+
+    <div class="mb-3">
+        <label for="profile" class="form-label">Profile</label>
+        <select asp-for="Profile" class="form-control">
+            <option value="">Select</option>
+            <option value="@ProfileEnum.Admin">Admin</option>
+            <option value="@ProfileEnum.Standard">Standard</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" asp-for="Password" class="form-control" placeholder="Enter user password">
+        @Html.ValidationMessageFor(x => x.Password)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+    <a class="btn btn-secondary" asp-controller="User" asp-action="Index" role="button">Back</a>
+</form>

@@ -4,8 +4,13 @@
 // Write your JavaScript code.
 
 $(document).ready(function () {
-    $('#contactsTable').DataTable();
+    getDatatable('#contactsTable');
+    getDatatable('#usersTable');
 });
+
+function getDatatable(id) {
+    $(id).DataTable();
+}
 
 $('.close-alert').click(function() {
     $('.alert').hide('hide');

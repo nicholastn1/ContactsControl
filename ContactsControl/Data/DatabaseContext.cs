@@ -24,5 +24,6 @@ namespace ContactsControl.Data
          * A tabela recebe o nome Contacts e ela é get e set.
          */
         public DbSet<ContactModel> Contacts { get; set; }
+        public DbSet<UserModel> Users { get; set; }
     }
 }
