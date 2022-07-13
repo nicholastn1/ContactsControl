@@ -1,32 +1,35 @@
 ﻿@using ContactsControl.Enums
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model UserModel
 @{
-    ViewData["Title"] = "Create User";
+    ViewData["Title"] = "Edit User";
 }
 
 <div class="text-center">
 
-    <h1 class="display-4">Register User</h1>
+    <h1 class="display-4">Edit Contact</h1>
 
 </div>
 
-<form asp-controller="User" asp-action="Create" method="post">
+<form asp-controller="User" asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="Id" />
 
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
-        <input type="text" asp-for="Name" class="form-control" placeholder="Enter user name">
+        <input type="text" asp-for="Name" class="form-control" placeholder="Enter contact name">
         @Html.ValidationMessageFor(x => x.Name)
     </div>
 
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="text" asp-for="Email" class="form-control" placeholder="Enter user email">
+        <input type="text" asp-for="Email" class="form-control" placeholder="Enter contact email">
         @Html.ValidationMessageFor(x => x.Email)
     </div>
 
     <div class="mb-3">
-        <label for="login" class="form-label">Login</label>
-        <input type="text" asp-for="Login" class="form-control" placeholder="Enter user login">
+        <label for="phone" class="form-label">Login</label>
+        <input type="text" asp-for="Login" class="form-control" placeholder="Enter contact login">
         @Html.ValidationMessageFor(x => x.Login)
     </div>
 
@@ -40,12 +43,6 @@
         @Html.ValidationMessageFor(x => x.Profile)
     </div>
 
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" asp-for="Password" class="form-control" placeholder="Enter user password">
-        @Html.ValidationMessageFor(x => x.Password)
-    </div>
-
-    <button type="submit" class="btn btn-primary">Add</button>
+    <button type="submit" class="btn btn-primary">Update</button>
     <a class="btn btn-secondary" asp-controller="User" asp-action="Index" role="button">Back</a>
 </form>

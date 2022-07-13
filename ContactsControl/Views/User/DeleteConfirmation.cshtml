@@ -1,0 +1,13 @@
+﻿@model UserModel
+@{
+    ViewData["Title"] = "Confirmation Delete Contact";
+}
+
+<div class="text-center">
+    <h3>Did you want to delete the user (@Model.Name)?</h3>
+</div>
+
+<div class="text-center" style="margin-top: 20px">
+    <a class="btn btn-danger" role="button" asp-controller="User" asp-action="Index">Cancel</a>
+    <a class="btn btn-success" role="button" asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id">Confirm</a>
+</div>

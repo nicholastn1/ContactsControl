@@ -55,7 +55,7 @@ namespace ContactsControl.Repository
             userDB.Name = user.Name;
             userDB.Email = user.Email;
             userDB.Login = user.Login;
-            userDB.Profile = userDB.Profile;
+            userDB.Profile = user.Profile;
             userDB.UpdateDate = DateTime.Now;
 
             _databaseContext.Users.Update(userDB);

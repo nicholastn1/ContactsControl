@@ -40,7 +40,7 @@ namespace ContactsControl.Controllers
 
                 if (deleted == true)
                 {
-                    TempData["SuccessMessage"] = "Contact delete successfully!";
+                    TempData["SuccessMessage"] = "Contact deleted successfully!";
                 }
                 else
                 {
