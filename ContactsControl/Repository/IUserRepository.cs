@@ -8,6 +8,7 @@ namespace ContactsControl.Repository
 {
     public interface IUserRepository
     {
+        UserModel SearchForLogin(string login);
         UserModel ListById(int id);
         List<UserModel> SearchAll();
         UserModel Add(UserModel user);

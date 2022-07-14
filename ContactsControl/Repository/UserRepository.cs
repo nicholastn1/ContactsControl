@@ -46,6 +46,11 @@ namespace ContactsControl.Repository
             return _databaseContext.Users.ToList();
         }
 
+        public UserModel SearchForLogin(string login)
+        {
+            return _databaseContext.Users.FirstOrDefault(x => x.Login.ToUpper() == login.ToUpper());
+        }
+
         public UserModel Update(UserModel user)
         {
             UserModel userDB = ListById(user.Id);
