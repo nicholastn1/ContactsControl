@@ -21,17 +21,17 @@ namespace ContactsControl.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignIn(LoginModel login)
+        public IActionResult SignIn(LoginModel loginModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    UserModel user = _userRepository.SearchForLogin(login.Login);
+                    UserModel user = _userRepository.SearchForLogin(loginModel.Login);
 
                     if (user != null)
                     {
-                        if (user.ValidPassword(login.Password))
+                        if (user.ValidPassword(loginModel.Password))
                         {
                             return RedirectToAction("Index", "Home");
                         }
