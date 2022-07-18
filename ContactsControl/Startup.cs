@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ContactsControl.Data;
 using ContactsControl.Repository;
+using ContactsControl.Helper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContactsControl
@@ -28,8 +30,18 @@ namespace ContactsControl
         {
             services.AddControllersWithViews();
             services.AddEntityFrameworkSqlServer().AddDbContext<DatabaseContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DataBase")));
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<Helper.IUserSession, UserSession>();
+
+            services.AddSession(o =>
+            {
+                o.Cookie.HttpOnly = true;
+                o.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +63,8 @@ namespace ContactsControl
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

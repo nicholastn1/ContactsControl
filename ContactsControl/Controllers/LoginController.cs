@@ -3,21 +3,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ContactsControl.Helper;
 using ContactsControl.Models;
 using ContactsControl.Repository;
+using Microsoft.AspNetCore.Http;
 
 namespace ContactsControl.Controllers
 {
     public class LoginController : Controller
     {
         private readonly IUserRepository _userRepository;
-        public LoginController(IUserRepository userRepository)
+        private readonly IUserSession _session;
+        public LoginController(IUserRepository userRepository, IUserSession session)
         {
             _userRepository = userRepository;
+            _session = session;
         }
         public IActionResult Index()
         {
+            // If user logged in, redirect to home
+
+            if (_session.SearchUserSession() != null) return RedirectToAction("Index", "Home");
+
             return View();
+        }
+
+        public IActionResult LogOut()
+        {
+            _session.OverUserSession();
+
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpPost]
@@ -33,8 +48,10 @@ namespace ContactsControl.Controllers
                     {
                         if (user.ValidPassword(loginModel.Password))
                         {
+                            _session.StartUserSession(user);
                             return RedirectToAction("Index", "Home");
                         }
+
                         TempData["ErrorMessage"] = "Password is not valid!";
                     }
                     TempData["ErrorMessage"] = "Login and/or Password is not valid!";

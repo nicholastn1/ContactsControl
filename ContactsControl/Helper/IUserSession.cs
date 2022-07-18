@@ -6,7 +6,7 @@ using ContactsControl.Models;
 
 namespace ContactsControl.Helper
 {
-    public interface ISession
+    public interface IUserSession
     {
         void StartUserSession(UserModel user);
         void OverUserSession();
